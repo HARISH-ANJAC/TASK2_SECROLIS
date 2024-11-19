@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import CardComponent from "./CustomCardView";
+import DetailsPage from "./DetailsScreen";
+import languages from "./datas";
+
+const language=languages;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <header>
+          <h1>Programming Languages</h1>
+        </header>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              
+              <div className="card-container">
+                {language.map((item) => (
+                  <CardComponent
+                    key={item.id}
+                    id={item.id}
+                    CardTitle={item.title}
+                    CardImg={item.img}
+                    CardDescriptions={item.description}
+                  />
+                ))}
+              </div>
+            }
+          />
+          <Route path="/details/:id" element={<DetailsPage services={languages} />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
